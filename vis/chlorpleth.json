@@ -1,0 +1,18 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+	"title": "EGM expenditure per person for each LGA",
+	"projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -36,
+      -38
+    ],
+    "rotate": [
+      -145,
+      0,
+      0
+    ]
+  },
+}
