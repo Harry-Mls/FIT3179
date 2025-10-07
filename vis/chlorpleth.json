@@ -15,4 +15,11 @@
       0
     ]
   },
+	"data": {
+    "url": "://raw.githubusercontent.com/harrymls/FIT3179/main/Data/VICLGAtopojson.json",
+    "format": {
+      "type": "topojson",
+      "feature": "VICLGAgeojson"
+    }
+
 }
