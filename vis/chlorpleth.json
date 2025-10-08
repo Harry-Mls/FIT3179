@@ -16,10 +16,27 @@
     ]
   },
 	"data": {
-    "url": "://raw.githubusercontent.com/harrymls/FIT3179/main/Data/VICLGAtopojson.json",
-    "format": {
-      "type": "topojson",
-      "feature": "VICLGAgeojson"
-    }
+    "url": "://raw.githubusercontent.com/Harry-Mls/FIT3179/main/Data/VICLGAtopojson.json",
+    "format": { "type": "topojson", "feature": "VicLGA"}
+    },
+    "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/covid_10_10_2020.csv"
+        },
+        "key": "LGA Name",
+        "fields": ["Active"]
+      }
+    },
+  ]
+  {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Harry-Mls/main/data/EGM2023-2024.csv"
+      },
+  }
 
 }
