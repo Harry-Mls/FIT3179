@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "POKIES LOSS",
+  "width": 600,
+  "height": 400,
+  "projection": {
+    "type": "equalEarth",
+    "rotate": [
+      -144,
+      0,
+      0
+    ]
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
+    "format": {
+      "type": "topojson",
+      "feature": "VICLGAgeojson"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "properties.vic_lga__3",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
+        },
+        "key": "LGA Name",
+        "fields": ["Expenditure per Adult", "Region"]
+      }
+    },
+    {"calculate": "datum['Expenditure per Adult']", "as": "Average yearly loss at the pokies"}
+  ],
+  "mark": {"type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.2},
+  "encoding": {
+    "color": {
+      "field": "Average yearly loss at the pokies",
+      "type": "quantitative",
+        "scale": {
+          "domain": [0,100,300,500,700,900,1100]
+      },
+      
+      "bin": true
+    },
+    "tooltip": [
+      {"field": "properties.vic_lga__3", "type": "nominal", "title": "LGA"},
+      {"field": "Average yearly loss at the pokies", "type": "quantitative"}
+    ]
+  }
+}
