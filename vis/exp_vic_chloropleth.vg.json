@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "title": "POKIES LOSS",
+  "title": "Average Yearly Loss to EGMs per Adult",
   "width": 600,
   "height": 400,
   "projection": {
@@ -35,7 +35,7 @@
     },
     {
       "calculate": "datum['Expenditure per Adult 2024']",
-      "as": "Average yearly loss at the pokies"
+      "as": "Expenditure per Adult ($) (2024)"
     }
   ],
   "mark": {
@@ -45,7 +45,7 @@
   },
   "encoding": {
     "color": {
-      "field": "Average yearly loss at the pokies",
+      "field": "Expenditure per Adult ($) (2024)",
       "type": "quantitative",
       "scale": {
         "type": "threshold",
@@ -77,8 +77,9 @@
         "title": "LGA"
       },
       {
-        "field": "Average yearly loss at the pokies",
-        "type": "quantitative"
+        "field": "Expenditure per Adult ($) (2024)",
+        "type": "quantitative",
+        "format": "$,"
       }
     ]
   }
