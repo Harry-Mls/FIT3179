@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "EGM Expenditure vs Unemployment (Bubble Chart)",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
+  },
+  "mark": {
+    "type": "circle",
+    "opacity": 0.7,
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Expenditure per Adult",
+      "type": "quantitative",
+      "title": "Expenditure per Adult ($)"
+    },
+    "size": {
+        "field": "SEIFA DIS Score",
+        "type": "quantitative",
+        "title": "SEIFA DIS Score",
+        "scale": {
+        "domain": [900, 1100]
+    }
+      
+    },
+    "y": {
+      "field": "EGM per 1000 Adults",
+      "type": "quantitative",
+      "title": "EGM per 1000 Adults"
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "legend": {"title": "Region"}
+    },
+    "tooltip": [
+      {"field": "LGA Name", "type": "nominal", "title": "LGA"},
+      {"field": "Expenditure per Adult", "type": "quantitative"},
+      {"field": "SEIFA DIS Score", "type": "quantitative"},
+      {"field": "EGM per 1000 Adults", "type": "quantitative"},
+      {"field": "Region", "type": "nominal"}
+    ]
+  }
+}
