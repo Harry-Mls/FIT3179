@@ -26,27 +26,60 @@
           "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
         },
         "key": "LGA Name",
-        "fields": ["Expenditure per Adult", "Region"]
+        "fields": [
+          "Expenditure per Adult 2024",
+          "Region",
+          "EGM ban"
+        ]
       }
     },
-    {"calculate": "datum['Expenditure per Adult']", "as": "Average yearly loss at the pokies"}
+    {
+      "calculate": "datum['Expenditure per Adult 2024']",
+      "as": "Average yearly loss at the pokies"
+    }
   ],
-  "mark": {"type": "geoshape",
-        "stroke": "black",
-        "strokeWidth": 0.2},
+  "mark": {
+    "type": "geoshape",
+    "stroke": "black",
+    "strokeWidth": 0.2
+  },
   "encoding": {
     "color": {
       "field": "Average yearly loss at the pokies",
       "type": "quantitative",
-        "scale": {
-          "domain": [0,100,300,500,700,900,1100]
-      },
-      
-      "bin": true
+      "scale": {
+        "type": "threshold",
+        "domain": [
+          0,
+          1,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "range": [
+          "#bbd4ff",
+          "#bbd4ff",
+          "#81acff",
+          "#6688db",
+          "#4d65b8",
+          "#354395",
+          "#1d2373",
+          "#000351"
+        ]
+      }
     },
     "tooltip": [
-      {"field": "properties.vic_lga__3", "type": "nominal", "title": "LGA"},
-      {"field": "Average yearly loss at the pokies", "type": "quantitative"}
+      {
+        "field": "properties.vic_lga__3",
+        "type": "nominal",
+        "title": "LGA"
+      },
+      {
+        "field": "Average yearly loss at the pokies",
+        "type": "quantitative"
+      }
     ]
   }
 }

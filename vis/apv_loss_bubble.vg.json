@@ -1,47 +1,200 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "EGM Expenditure vs Unemployment (Bubble Chart)",
-  "width": 600,
-  "height": 400,
+  "description": "Bubble chart of LGAs by expenditure and income, sized by EGM per adult, colored by EGM ban",
   "data": {
     "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
   },
-  "mark": {
-    "type": "circle",
-    "opacity": 0.7,
-    "tooltip": true
-  },
-  "encoding": {
-    "x": {
-      "field": "Expenditure per Adult",
-      "type": "quantitative",
-      "title": "Expenditure per Adult ($)"
+  "title": "Pokies Expediture per Adult in Victorian LGA's(2024)",
+  "width": 600,
+  "height": 400,
+  "params": [
+    {
+      "name": "EGMpA_Above",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "name": "Pokies Machines Per 1000 Adults: "
+      }
     },
-    "size": {
-        "field": "SEIFA DIS Score",
-        "type": "quantitative",
-        "title": "SEIFA DIS Score",
-        "scale": {
-        "domain": [900, 1100]
+    {
+      "name": "Region_Selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Metro",
+          "Country"
+        ],
+        "labels": [
+          "Show All",
+          "Metro",
+          "Country"
+        ],
+        "name": "Region Selection: "
+      }
     }
-      
+  ],
+  "transform": [
+    {
+      "filter": "datum['EGM per 1,000 Adults 2024'] > EGMpA_Above"
     },
+    {
+      "filter": "Region_Selection == null || datum.Region == Region_Selection"
+    }
+  ],
+  "encoding": {
     "y": {
-      "field": "EGM per 1000 Adults",
+      "field": "SEIFA DIS Score ",
       "type": "quantitative",
-      "title": "EGM per 1000 Adults"
+      "title": "SEIFA DIS Score ",
+      "scale": {
+        "domain": [
+          880,
+          1100
+        ]
+      }
     },
-    "color": {
-      "field": "Region",
-      "type": "nominal",
-      "legend": {"title": "Region"}
+    "x": {
+      "field": "Expenditure per Adult 2024",
+      "type": "quantitative",
+      "title": "Expenditure per Adult 2024",
+      "scale": {
+        "domain": [
+          0,
+          1100
+        ]
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "Adults Population 2024",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              5000,
+              20000,
+              50000,
+              150000
+            ],
+            "range": [
+              50,
+              100,
+              175,
+              275,
+              400
+            ]
+          },
+          "legend": {
+            "format": ".1s"
+          }
+        },
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Metro",
+              "Country"
+            ],
+            "range": [
+              "#214db0",
+              "#00a768"
+            ]
+          }
+        },
+        "opacity": {
+          "value": 0.6
+        },
+        "tooltip": [
+          {
+            "field": "LGA Name",
+            "type": "nominal"
+          },
+          {
+            "field": "Region",
+            "type": "nominal"
+          },
+          {
+            "field": "Expenditure per Adult 2024",
+            "type": "quantitative",
+            "format": "$,"
+          },
+          {
+            "field": "SEIFA DIS Score ",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "SEIFA ADVDIS Score",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Median House Hold Weekly Income",
+            "type": "quantitative",
+            "format": "$,"
+          },
+          {
+            "field": "EGM per 1,000 Adults 2024",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Unemployment Rate as at June 2024",
+            "type": "quantitative",
+            "format": ".0%"
+          }
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "LGA Name", "type": "nominal", "title": "LGA"},
-      {"field": "Expenditure per Adult", "type": "quantitative"},
-      {"field": "SEIFA DIS Score", "type": "quantitative"},
-      {"field": "EGM per 1000 Adults", "type": "quantitative"},
-      {"field": "Region", "type": "nominal"}
-    ]
-  }
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -3,
+        "dy": -3,
+        "fontSize": 10,
+        "color": "black"
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "LGA Name",
+            "oneOf": [
+              "BAYSIDE",
+              "MONASH",
+              "MELBOURNE",
+              "BENDIGO",
+              "BRIMBANK",
+              "MILDURA",
+              "QUEENSCLIFFE",
+              "WODONGA"
+            ]
+          }
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Expenditure per Adult 2024",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "SEIFA DIS Score ",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "LGA Name",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
 }
