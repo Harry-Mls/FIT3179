@@ -9,9 +9,7 @@
         "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VictorianGambling.csv",
         "format": {
             "type": "csv"
-        },
-        "key": "Gambling Form",
-        "field": "Per Capita Expenditure ($)"
+        }
     },
     "layer": [
         {

@@ -3,7 +3,8 @@ body {
   padding: 0;
   background-size: contain;
   background-repeat: repeat;
-background: rgba(208,228,245,0.8) url("https://t3.ftcdn.net/jpg/04/79/87/56/360_F_479875611_UxpKAWbBdqxXbEZaNNCrqluYaSW0yHut.jpg") repeat scroll 50% 50%;}
+background: rgb(104, 0, 81)
+}
 
 #page-container {
   max-width: 1000px;
