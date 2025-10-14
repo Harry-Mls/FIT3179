@@ -1,11 +1,52 @@
-#choropleth_map {
+body {
+  margin: 0;
+  padding: 0;
+  background-size: contain;
+  background-repeat: repeat;
+background: rgba(208,228,245,0.8) url("https://t3.ftcdn.net/jpg/04/79/87/56/360_F_479875611_UxpKAWbBdqxXbEZaNNCrqluYaSW0yHut.jpg") repeat scroll 50% 50%;}
+
+#page-container {
+  max-width: 1000px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   margin: 40px auto;
-  padding: 10px;
-  max-width: 900px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.bar-box {
+  width: 500px;
+  height: 400px;
+  background-color: #ccc;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.text p {
+  margin: 0;
+  font-size: 18px;
+}
+
+#radar_chart,
+#choropleth_map,
 #scatter_plot {
-  margin: 40px auto;
-  padding: 10px;
-  max-width: 900px;
+  margin-top: 40px;
 }

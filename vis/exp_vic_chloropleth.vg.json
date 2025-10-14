@@ -1,86 +1,294 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "title": "Average Yearly Loss to EGMs per Adult",
-  "width": 600,
-  "height": 400,
-  "projection": {
-    "type": "equalEarth",
-    "rotate": [
-      -144,
-      0,
-      0
-    ]
-  },
-  "data": {
-    "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
-    "format": {
-      "type": "topojson",
-      "feature": "VICLGAgeojson"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Victorian LGAs: Gambling Losses, Socio-Economic Status, and Unemployment (2024)",
+  "resolve": {
+    "scale": {
+      "color": "independent"
     }
   },
-  "transform": [
+  "config": {
+    "projection": {
+      "type": "equalEarth",
+      "rotate": [
+        -140,
+        0,
+        0
+      ]
+    }
+  },
+  "params": [
     {
-      "lookup": "properties.vic_lga__3",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
-        },
-        "key": "LGA Name",
-        "fields": [
-          "Expenditure per Adult 2024",
-          "Region",
-          "EGM ban"
-        ]
+      "name": "regionFilter",
+      "value": "All",
+      "bind": {
+        "input": "radio",
+        "options": [
+          "All",
+          "Metro"
+        ],
+        "labels": [
+          "All LGAs",
+          "Metro Only"
+        ],
+        "name": "Select Region - "
       }
-    },
-    {
-      "calculate": "datum['Expenditure per Adult 2024']",
-      "as": "Expenditure per Adult ($) (2024)"
     }
   ],
-  "mark": {
-    "type": "geoshape",
-    "stroke": "black",
-    "strokeWidth": 0.2
-  },
-  "encoding": {
-    "color": {
-      "field": "Expenditure per Adult ($) (2024)",
-      "type": "quantitative",
-      "scale": {
-        "type": "threshold",
-        "domain": [
-          0,
-          1,
-          200,
-          400,
-          600,
-          800,
-          1000
-        ],
-        "range": [
-          "#bbd4ff",
-          "#bbd4ff",
-          "#81acff",
-          "#6688db",
-          "#4d65b8",
-          "#354395",
-          "#1d2373",
-          "#000351"
+  "hconcat": [
+    {
+      "title": "Average Yearly EGM Loss per Adult ($)",
+      "width": 300,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
+        "format": {
+          "type": "topojson",
+          "feature": "VICLGAgeojson"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.vic_lga__3",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
+            },
+            "key": "LGA Name",
+            "fields": [
+              "Expenditure per Adult 2024",
+              "Region",
+              "EGM ban"
+            ]
+          }
+        },
+        {
+          "filter": "regionFilter === 'All' || datum.Region === regionFilter"
+        },
+        {
+          "calculate": "datum['Expenditure per Adult 2024']",
+          "as": "Expenditure per Adult ($)"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.2
+      },
+      "encoding": {
+        "color": {
+          "field": "Expenditure per Adult ($)",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              0,
+              1,
+              200,
+              400,
+              600,
+              800,
+              1000
+            ],
+            "range": [
+              "#d7f5df",
+              "#c2ebd1",
+              "#97d4b2",
+              "#6fbd93",
+              "#4fa273",
+              "#2f874f",
+              "#016D29",
+              "#01431E"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "title": "EGM Loss per Adult"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.vic_lga__3",
+            "type": "nominal",
+            "title": "LGA"
+          },
+          {
+            "field": "Expenditure per Adult ($)",
+            "type": "quantitative",
+            "format": "$,"
+          }
         ]
       }
     },
-    "tooltip": [
-      {
-        "field": "properties.vic_lga__3",
-        "type": "nominal",
-        "title": "LGA"
+    {
+      "title": "Socio-Economic Advantage Score*",
+      "width": 300,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
+        "format": {
+          "type": "topojson",
+          "feature": "VICLGAgeojson"
+        }
       },
-      {
-        "field": "Expenditure per Adult ($) (2024)",
-        "type": "quantitative",
-        "format": "$,"
+      "transform": [
+        {
+          "lookup": "properties.vic_lga__3",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
+            },
+            "key": "LGA Name",
+            "fields": [
+              "SEIFA DIS Score ",
+              "Region",
+              "EGM ban"
+            ]
+          }
+        },
+        {
+          "filter": "regionFilter === 'All' || datum.Region === regionFilter"
+        },
+        {
+          "calculate": "datum['SEIFA DIS Score ']",
+          "as": "SEIFA DIS Score"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.2
+      },
+      "encoding": {
+        "color": {
+          "field": "SEIFA DIS Score",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              925,
+              950,
+              975,
+              1000,
+              1025,
+              1050
+            ],
+            "range": [
+              "#dce6f9",
+              "#c2d4f3",
+              "#94b1e2",
+              "#688fcd",
+              "#4a6bb3",
+              "#2f4d97",
+              "#1d347c",
+              "#0e1a4f"
+            ],
+            "reverse": true
+          },
+          "legend": {
+            "title": "SEIFA Score",
+            "orient": "bottom",
+            "direction": "horizontal"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.vic_lga__3",
+            "type": "nominal",
+            "title": "LGA"
+          },
+          {
+            "field": "SEIFA DIS Score",
+            "type": "quantitative"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "title": "Unemployment Rate (June 2024)",
+      "width": 300,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
+        "format": {
+          "type": "topojson",
+          "feature": "VICLGAgeojson"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.vic_lga__3",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
+            },
+            "key": "LGA Name",
+            "fields": [
+              "Unemployment Rate as at June 2024",
+              "Region",
+              "EGM ban"
+            ]
+          }
+        },
+        {
+          "filter": "regionFilter === 'All' || datum.Region === regionFilter"
+        },
+        {
+          "calculate": "datum['Unemployment Rate as at June 2024']",
+          "as": "Unemployment Rate"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.2
+      },
+      "encoding": {
+        "color": {
+          "field": "Unemployment Rate",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              0.01,
+              0.02,
+              0.03,
+              0.04,
+              0.05,
+              0.06,
+              0.07
+            ],
+            "range": [
+              "#fbe0dc",
+              "#f6c7c2",
+              "#e89c97",
+              "#d3706a",
+              "#bb4b45",
+              "#9b2f2a",
+              "#801f1d",
+              "#4c0f0d"
+            ]
+          },
+          "legend": {
+            "title": "Unemployment Rate",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "format": ".0%"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.vic_lga__3",
+            "type": "nominal",
+            "title": "LGA"
+          },
+          {
+            "field": "Unemployment Rate",
+            "type": "quantitative",
+            "format": ".0%"
+          }
+        ]
+      }
+    }
+  ]
 }

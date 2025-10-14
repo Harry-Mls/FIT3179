@@ -1,0 +1,709 @@
+{
+	"$schema": "https://vega.github.io/schema/vega/v6.json",
+	"description": "Radar chart comparing two LGAs with normalized scores",
+	"width": 700,
+	"height": 700,
+	"padding": 120,
+	"autosize": {
+		"type": "none",
+		"contains": "padding"
+	},
+	"signals": [
+		{
+			"name": "radius",
+			"update": "width/2"
+		},
+		{
+			"name": "LGAFilter1",
+			"value": "MELBOURNE",
+			"bind": {
+				"input": "select",
+				"options": [
+					"ALPINE",
+					"ARARAT",
+					"BALLARAT",
+					"BANYULE",
+					"BASS COAST",
+					"BAW BAW",
+					"BAYSIDE",
+					"BENALLA",
+					"BOROONDARA",
+					"BRIMBANK",
+					"BULOKE",
+					"CAMPASPE",
+					"CARDINIA",
+					"CASEY",
+					"CENTRAL GOLDFIELDS",
+					"COLAC OTWAY",
+					"CORANGAMITE",
+					"DAREBIN",
+					"EAST GIPPSLAND",
+					"FRANKSTON",
+					"GANNAWARRA",
+					"GLEN EIRA",
+					"GLENELG",
+					"GOLDEN PLAINS",
+					"GREATER BENDIGO",
+					"GREATER DANDENONG",
+					"GREATER GEELONG",
+					"GREATER SHEPPARTON",
+					"HEPBURN",
+					"HINDMARSH",
+					"HOBSONS BAY",
+					"HORSHAM",
+					"HUME",
+					"INDIGO",
+					"KINGSTON",
+					"KNOX",
+					"LATROBE",
+					"LODDON",
+					"MACEDON RANGES",
+					"MANNINGHAM",
+					"MANSFIELD",
+					"MARIBYRNONG",
+					"MAROONDAH",
+					"MELBOURNE",
+					"MELTON",
+					"MILDURA",
+					"MITCHELL",
+					"MOIRA",
+					"MOONEE VALLEY",
+					"MOORABOOL",
+					"MORELAND",
+					"MORNINGTON PENINSULA",
+					"MOUNT ALEXANDER",
+					"MOYNE",
+					"MURRINDINDI",
+					"NILLUMBIK",
+					"NORTHERN GRAMPIANS",
+					"PORT PHILLIP",
+					"PYRENEES",
+					"QUEENSCLIFFE",
+					"SOUTH GIPPSLAND",
+					"SOUTHERN GRAMPIANS",
+					"STONNINGTON",
+					"STRATHBOGIE",
+					"SURF COAST",
+					"SWAN HILL",
+					"TOWONG",
+					"WANGARATTA",
+					"WARRNAMBOOL",
+					"WEST WIMMERA",
+					"WELLINGTON",
+					"WHITEHORSE",
+					"WHITTLESEA",
+					"WODONGA",
+					"WYNDHAM",
+					"YARRA",
+					"YARRA RANGES",
+					"YARRIAMBIACK"
+				],
+				"name": "Select LGA 1"
+			}
+		},
+		{
+			"name": "LGAFilter2",
+			"value": "BALLARAT",
+			"bind": {
+				"input": "select",
+				"options": [
+					"ALPINE",
+					"ARARAT",
+					"BALLARAT",
+					"BANYULE",
+					"BASS COAST",
+					"BAW BAW",
+					"BAYSIDE",
+					"BENALLA",
+					"BOROONDARA",
+					"BRIMBANK",
+					"BULOKE",
+					"CAMPASPE",
+					"CARDINIA",
+					"CASEY",
+					"CENTRAL GOLDFIELDS",
+					"COLAC OTWAY",
+					"CORANGAMITE",
+					"DAREBIN",
+					"EAST GIPPSLAND",
+					"FRANKSTON",
+					"GANNAWARRA",
+					"GLEN EIRA",
+					"GLENELG",
+					"GOLDEN PLAINS",
+					"GREATER BENDIGO",
+					"GREATER DANDENONG",
+					"GREATER GEELONG",
+					"GREATER SHEPPARTON",
+					"HEPBURN",
+					"HINDMARSH",
+					"HOBSONS BAY",
+					"HORSHAM",
+					"HUME",
+					"INDIGO",
+					"KINGSTON",
+					"KNOX",
+					"LATROBE",
+					"LODDON",
+					"MACEDON RANGES",
+					"MANNINGHAM",
+					"MANSFIELD",
+					"MARIBYRNONG",
+					"MAROONDAH",
+					"MELBOURNE",
+					"MELTON",
+					"MILDURA",
+					"MITCHELL",
+					"MOIRA",
+					"MOONEE VALLEY",
+					"MOORABOOL",
+					"MORELAND",
+					"MORNINGTON PENINSULA",
+					"MOUNT ALEXANDER",
+					"MOYNE",
+					"MURRINDINDI",
+					"NILLUMBIK",
+					"NORTHERN GRAMPIANS",
+					"PORT PHILLIP",
+					"PYRENEES",
+					"QUEENSCLIFFE",
+					"SOUTH GIPPSLAND",
+					"SOUTHERN GRAMPIANS",
+					"STONNINGTON",
+					"STRATHBOGIE",
+					"SURF COAST",
+					"SWAN HILL",
+					"TOWONG",
+					"WANGARATTA",
+					"WARRNAMBOOL",
+					"WEST WIMMERA",
+					"WELLINGTON",
+					"WHITEHORSE",
+					"WHITTLESEA",
+					"WODONGA",
+					"WYNDHAM",
+					"YARRA",
+					"YARRA RANGES",
+					"YARRIAMBIACK"
+				],
+				"name": "Select LGA 2"
+			}
+		}
+	],
+	"data": [
+		{
+			"name": "table",
+			"url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv",
+			"format": {
+				"type": "csv"
+			},
+			"transform": [
+				{
+					"type": "fold",
+					"fields": [
+						"Median House Hold Weekly Income",
+						"SEIFA DIS Score ",
+						"Expenditure per Adult 2024",
+						"Adults per Venue 2024",
+						"EGM per 1,000 Adults 2024",
+						"Unemployment Rate as at June 2024"
+					],
+					"as": [
+						"key",
+						"value"
+					]
+				},
+				{
+					"type": "formula",
+					"expr": "toNumber(datum.value)",
+					"as": "value"
+				},
+				{
+					"type": "joinaggregate",
+					"groupby": [
+						"key"
+					],
+					"ops": [
+						"min",
+						"max"
+					],
+					"fields": [
+						"value",
+						"value"
+					],
+					"as": [
+						"minValue",
+						"maxValue"
+					]
+				},
+				{
+					"type": "formula",
+					"expr": "(datum.value - datum.minValue) / (datum.maxValue - datum.minValue)",
+					"as": "scaledValue"
+				}
+			]
+		},
+		{
+			"name": "labelMap",
+			"values": [
+				{
+					"key": "Median House Hold Weekly Income",
+					"displayName": "Median Weekly Income"
+				},
+				{
+					"key": "SEIFA DIS Score ",
+					"displayName": "SEIFA DIS Score"
+				},
+				{
+					"key": "Expenditure per Adult 2024",
+					"displayName": "Expenditure per Adult"
+				},
+				{
+					"key": "Adults per Venue 2024",
+					"displayName": "Adults per Venue"
+				},
+				{
+					"key": "EGM per 1,000 Adults 2024",
+					"displayName": "EGM per 1,000 Adults"
+				},
+				{
+					"key": "Unemployment Rate as at June 2024",
+					"displayName": "Unemployment"
+				}
+			]
+		},
+		{
+			"name": "filteredLGA1",
+			"source": "table",
+			"transform": [
+				{
+					"type": "filter",
+					"expr": "datum['LGA Name'] === LGAFilter1"
+				}
+			]
+		},
+		{
+			"name": "filteredLGA2",
+			"source": "table",
+			"transform": [
+				{
+					"type": "filter",
+					"expr": "datum['LGA Name'] === LGAFilter2"
+				}
+			]
+		},
+		{
+			"name": "keys",
+			"source": "table",
+			"transform": [
+				{
+					"type": "aggregate",
+					"groupby": [
+						"key"
+					]
+				},
+				{
+					"type": "lookup",
+					"from": "labelMap",
+					"key": "key",
+					"fields": [
+						"key"
+					],
+					"values": [
+						"displayName"
+					],
+					"as": [
+						"displayName"
+					]
+				}
+			]
+		}
+	],
+	"scales": [
+		{
+			"name": "angular",
+			"type": "point",
+			"range": {
+				"signal": "[-PI, PI]"
+			},
+			"padding": 0.5,
+			"domain": {
+				"data": "keys",
+				"field": "key"
+			}
+		},
+		{
+			"name": "radial",
+			"type": "linear",
+			"range": {
+				"signal": "[0, radius]"
+			},
+			"zero": true,
+			"nice": false,
+			"domain": [
+				0,
+				1
+			]
+		},
+		{
+			"name": "color",
+			"type": "ordinal",
+			"domain": [
+				0,
+				1
+			],
+			"range": [
+				"#1f77b4",
+				"#ff7f0e"
+			]
+		}
+	],
+	"encode": {
+		"enter": {
+			"x": {
+				"signal": "radius"
+			},
+			"y": {
+				"signal": "radius"
+			}
+		}
+	},
+	"marks": [
+		{
+			"type": "line",
+			"name": "category-line-1",
+			"from": {
+				"data": "filteredLGA1"
+			},
+			"encode": {
+				"enter": {
+					"interpolate": {
+						"value": "linear-closed"
+					},
+					"x": {
+						"signal": "scale('radial', datum.scaledValue) * cos(scale('angular', datum.key))"
+					},
+					"y": {
+						"signal": "scale('radial', datum.scaledValue) * sin(scale('angular', datum.key))"
+					},
+					"stroke": {
+						"scale": "color",
+						"value": 0
+					},
+					"strokeWidth": {
+						"value": 3
+					},
+					"fill": {
+						"scale": "color",
+						"value": 0
+					},
+					"fillOpacity": {
+						"value": 0.15
+					}
+				}
+			}
+		},
+		{
+			"type": "line",
+			"name": "category-line-2",
+			"from": {
+				"data": "filteredLGA2"
+			},
+			"encode": {
+				"enter": {
+					"interpolate": {
+						"value": "linear-closed"
+					},
+					"x": {
+						"signal": "scale('radial', datum.scaledValue) * cos(scale('angular', datum.key))"
+					},
+					"y": {
+						"signal": "scale('radial', datum.scaledValue) * sin(scale('angular', datum.key))"
+					},
+					"stroke": {
+						"scale": "color",
+						"value": 1
+					},
+					"strokeWidth": {
+						"value": 3
+					},
+					"fill": {
+						"scale": "color",
+						"value": 1
+					},
+					"fillOpacity": {
+						"value": 0.15
+					}
+				}
+			}
+		},
+		{
+			"type": "rule",
+			"name": "radial-grid",
+			"from": {
+				"data": "keys"
+			},
+			"zindex": 0,
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 0
+					},
+					"y": {
+						"value": 0
+					},
+					"x2": {
+						"signal": "radius * cos(scale('angular', datum.key))"
+					},
+					"y2": {
+						"signal": "radius * sin(scale('angular', datum.key))"
+					},
+					"stroke": {
+						"value": "lightgray"
+					},
+					"strokeWidth": {
+						"value": 1
+					}
+				}
+			}
+		},
+		{
+			"type": "text",
+			"name": "key-label",
+			"from": {
+				"data": "keys"
+			},
+			"zindex": 1,
+			"encode": {
+				"enter": {
+					"x": {
+						"signal": "(radius + 10) * cos(scale('angular', datum.key))"
+					},
+					"y": {
+						"signal": "(radius + 10) * sin(scale('angular', datum.key))"
+					},
+					"text": {
+						"field": "displayName"
+					},
+					"align": [
+						{
+							"test": "abs(scale('angular', datum.key)) > PI / 2",
+							"value": "right"
+						},
+						{
+							"value": "left"
+						}
+					],
+					"baseline": [
+						{
+							"test": "scale('angular', datum.key) > 0",
+							"value": "top"
+						},
+						{
+							"test": "scale('angular', datum.key) == 0",
+							"value": "middle"
+						},
+						{
+							"value": "bottom"
+						}
+					],
+					"fill": {
+						"value": "black"
+					},
+					"fontWeight": {
+						"value": "bold"
+					},
+					"fontSize": {
+						"value": 12
+					}
+				}
+			}
+		},
+		{
+			"type": "line",
+			"name": "outer-line",
+			"from": {
+				"data": "radial-grid"
+			},
+			"encode": {
+				"enter": {
+					"interpolate": {
+						"value": "linear-closed"
+					},
+					"x": {
+						"field": "x2"
+					},
+					"y": {
+						"field": "y2"
+					},
+					"stroke": {
+						"value": "lightgray"
+					},
+					"strokeWidth": {
+						"value": 1
+					}
+				}
+			}
+		},
+		{
+			"type": "symbol",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 220
+					},
+					"y": {
+						"value": -10
+					},
+					"shape": {
+						"value": "circle"
+					},
+					"size": {
+						"value": 100
+					},
+					"fill": {
+						"scale": "color",
+						"value": 0
+					}
+				}
+			}
+		},
+		{
+			"type": "text",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 230
+					},
+					"y": {
+						"value": -9
+					},
+					"text": {
+						"value": "LGA 1"
+					},
+					"fontSize": {
+						"value": 14
+					},
+					"baseline": {
+						"value": "middle"
+					},
+					"fill": {
+						"scale": "color",
+						"value": 0
+					}
+				}
+			}
+		},
+		{
+			"type": "symbol",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 220
+					},
+					"y": {
+						"value": 10
+					},
+					"shape": {
+						"value": "circle"
+					},
+					"size": {
+						"value": 100
+					},
+					"fill": {
+						"scale": "color",
+						"value": 1
+					}
+				}
+			}
+		},
+		{
+			"type": "text",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 230
+					},
+					"y": {
+						"value": 11
+					},
+					"text": {
+						"value": "LGA 2"
+					},
+					"fontSize": {
+						"value": 14
+					},
+					"baseline": {
+						"value": "middle"
+					},
+					"fill": {
+						"scale": "color",
+						"value": 1
+					}
+				}
+			}
+		},
+		{
+			"type": "text",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 0
+					},
+					"y": {
+						"value": -320
+					},
+					"text": {
+						"value": "Comparison of LGAs on Normalized Scores"
+					},
+					"fontSize": {
+						"value": 20
+					},
+					"fontWeight": {
+						"value": "bold"
+					},
+					"align": {
+						"value": "center"
+					},
+					"baseline": {
+						"value": "middle"
+					},
+					"fill": {
+						"value": "#333"
+					}
+				}
+			}
+		},
+		{
+			"type": "text",
+			"encode": {
+				"enter": {
+					"x": {
+						"value": 0
+					},
+					"y": {
+						"value": -300
+					},
+					"text": {
+						"value": "Scores are normalized (0 to 1) across all LGAs for each metric"
+					},
+					"fontSize": {
+						"value": 12
+					},
+					"fontStyle": {
+						"value": "italic"
+					},
+					"align": {
+						"value": "center"
+					},
+					"baseline": {
+						"value": "middle"
+					},
+					"fill": {
+						"value": "#666"
+					}
+				}
+			}
+		}
+	]
+}

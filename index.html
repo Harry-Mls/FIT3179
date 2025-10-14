@@ -3,7 +3,7 @@
 <head>  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Victoria Plays Pokies, Who Loses?</title>
+  <title>Pokies in Victoria, What Communities are Impacted the Most?</title>
 
   <!-- Import Vega & Vega-Lite -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
@@ -15,14 +15,26 @@
 </head>
 
 <body>
+  <div id="page-container">
+    <h1> Pokies Prevalence in Victoria </h1>
 
-  <h1>Victorian Pokies Statistics</h1>
+    <div class="container">
+      <div class="bar-box">
+        <p>bar chart</p>
+      </div>
+      <div class="text">
+        <p>Blah blah blah blah</p>
+      </div>
+    </div>
 
-  <!-- Choropleth Map Container -->
-  <div id="choropleth_map"></div>
+    <!-- Choropleth Map Container -->
+    <div id="choropleth_map"></div>
 
-  <!-- Scatter Plot Container -->
-  <div id="scatter_plot"></div>
+    <!-- Scatter Plot Container -->
+    <div id="scatter_plot"></div>
+
+    <div id="radar_chart"></div>
+  </div>
 
   <!-- Embed Vega-Lite Visualizations -->
   <script type="text/javascript">
@@ -41,5 +53,12 @@
       .catch(console.error);
   </script>
 
+  <script type="text/javascript">
+    vegaEmbed('#radar_chart', 'vis/radar_chart.vg.json')
+      .then(function(result) {
+        // Vega view instance
+      })
+      .catch(console.error);
+  </script>
 </body>
 </html>
