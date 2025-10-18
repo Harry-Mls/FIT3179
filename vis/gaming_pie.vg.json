@@ -1,76 +1,65 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-    "description": "A simple pie chart with embedded data.",
-    "width": 300,
-    "height": 300,
-    "title": "Victorian Gambling Expediture Distribution",
-    "data": {
-        "name": "table",
-        "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VictorianGambling.csv",
-        "format": {
-            "type": "csv"
-        }
-    },
-    "layer": [
-        {
-            "mark": {
-                "type": "image",
-                "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/assets/grey_chip.png",
-                "width": 300,
-                "height": 300
-            },
-            "encoding": {
-                "x": {
-                    "value": 150
-                },
-                "y": {
-                    "value": 150
-                }
-            }
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "A donut chart showing Victorian Gambling Expenditure Distribution.",
+  "width": 250,
+  "height": 250,
+  "title": {
+    "text": "Gambling Expenditure Distribution",
+    "subtitle": "Per Capita Expenditure by Gambling Form in Victoria",
+    "fontSize": 20,
+    "subtitleFontSize": 13,
+    "anchor": "start",
+    "align": "left"
+  },
+  "data": {
+    "name": "table",
+    "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VictorianGambling.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 90,
+        "outerRadius": 120,
+        "opacity": 0.85,
+        "xOffset": { "expr": "45" },
+        "yOffset": { "expr": "10" }
+      },
+      "encoding": {
+        "theta": {
+          "field": "Per Capita Expenditure ($)",
+          "type": "quantitative"
         },
-        {
-            "mark": {
-                "type": "arc",
-                "opacity": 0.8
-            },
-            "encoding": {
-                "theta": {
-                    "field": "Per Capita Expenditure ($)",
-                    "type": "quantitative"
-                },
-                "color": {
-                    "field": "Gambling Form",
-                    "type": "nominal",
-                    "scale": {
-                        "domain": [
-                            "Betting",
-                            "Casino",
-                            "Keno",
-                            "Lotteries",
-                            "Pokies"
-                        ],
-                        "range": [
-                            "#d91919",
-                            "#d96f19",
-                            "#d919c9",
-                            "#009b00",
-                            "#1939d9"
-                        ]
-                    }
-                },
-                "tooltip": [
-                    {
-                        "field": "Gambling Form",
-                        "type": "nominal",
-                        "title": "Gambling Form"
-                    },
-                    {
-                        "field": "Per Capita Expenditure ($)",
-                        "type": "quantitative",
-                        "format": "$,"
-                    }
-                ]
-            }
-        }
-    ]
+        "color": {
+          "field": "Gambling Form",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Betting", "Casino", "Keno", "Lotteries", "Pokies"],
+            "range": ["#d91919", "#d96f19", "#d919c9", "#009b00", "#1939d9"]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "labelFontSize": 14,
+            "titleFontSize": 16
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Gambling Form",
+            "type": "nominal",
+            "title": "Gambling Form"
+          },
+          {
+            "field": "Per Capita Expenditure ($)",
+            "type": "quantitative",
+            "format": "$,"
+          }
+        ]
+      }
+    }
+  ]
 }

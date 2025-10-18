@@ -3,11 +3,12 @@ body {
   padding: 0;
   background-size: contain;
   background-repeat: repeat;
-background: rgb(104, 0, 81)
+  background: rgb(104, 0, 81);
 }
 
 #page-container {
-  max-width: 1000px;
+  max-width: 1300px;
+
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -25,7 +26,6 @@ h1 {
 h2 {
   text-align: center;
 }
-
 
 .container {
   display: flex;

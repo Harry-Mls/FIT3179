@@ -1,105 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokies in Victoria - Community Impact</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokies in Victoria, What Communities are Impacted the Most?</title>
+    <!-- Vega & Vega-Lite Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
 
-  <!-- Import Vega & Vega-Lite -->
-  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
 
-  <!-- CSS Styles -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
-</head>
+      #page-container {
+        width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
 
-<body>
-  <div id="page-container">
-    <h1> Pokies Prevalence in Victoria </h1>
+      .box {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
 
-    <div class="container">
-      <div id="gaming_pie"></div>
-      <div class="text">
-        <p>Electronic Gaming machines (EGMs), also known as Pokies, Slot Machines and the One-Armed-Bandit sBlah blah
-          blah blah Blah blah blah blah Blah blah blah blahBlah blah blah blah</p>
+      .fixed-size {
+        width: 400px;
+        height: 400px;
+      }
+
+      .text-box {
+        height: 400px;
+        overflow-y: auto;
+      }
+
+      .section-title {
+        padding: 20px;
+        background-color: bisque;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .flex-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .flex-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .map-box,
+      .chart-box,
+      .conclusion-box,
+      .references-box {
+        margin-bottom: 20px;
+      }
+
+      .half-height {
+        height: 310px;
+      }
+
+      .third-height {
+        height: 206.6px;
+      }
+
+      .twothird-height {
+        height: 413.3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="page-container">
+      <!-- Title -->
+      <div class="section-title">
+        <h1 style="margin: 0">
+          Pokies in Victoria: What Communities are Impacted the Most?
+        </h1>
+      </div>
+
+      <!-- Intro Text + Pie + Bubble -->
+      <div class="flex-row">
+        <div class="flex-column">
+          <!-- Intro Text -->
+          <div class="box fixed-size text-box">
+            <p>
+              Electronic Gaming Machines (EGMs), known as slot machines globally
+              and "pokies" in Australia, have been a prominent part of the
+              nation's culture since their legalization in New South Wales in
+              1956. Originally introduced for entertainment in clubs and pubs,
+              their popularity quickly spread nationwide. Today, Australia has
+              one of the highest concentrations of pokies per capita. They are
+              embedded in community venues like RSLs and sports clubs, often
+              marketed as sources of local funding. However, growing concerns
+              around gambling addiction and financial harm have led to calls for
+              reform. Here we will investigate what Local Governement Area's
+              (LGAs) are most heavily impacted, and the socio-economics of these
+              communities.
+            </p>
+          </div>
+
+          <!-- Pie Chart -->
+          <div class="box fixed-size">
+            <div id="gaming_pie" style="width: 100%; height: 100%"></div>
+          </div>
+        </div>
+
+        <!-- Bubble Chart -->
+        <div class="box" style="flex: 1">
+          <div id="scatter_plot" style="width: 100%; height: 100%"></div>
+        </div>
+      </div>
+
+      <!-- Choropleth Map -->
+      <div class="box map-box">
+        <div id="choropleth_map" style="width: 100%; height: 500px"></div>
+      </div>
+
+      <!-- Radar Chart + Final Analysis Text -->
+      <div class="flex-row">
+        <!-- Radar Chart -->
+        <div class="box chart-box" style="flex: 1; height: 640px">
+          <div id="radar_chart" style="width: 100%; height: 100%"></div>
+        </div>
+
+        <!-- Conclusion Text + Parallel Coordinates -->
+        <div class="flex-column">
+          <!-- Parallel Coordinates Chart -->
+          <div class="box twothird-height">
+            <div id="parallel_coords" style="width: 100%; height: 100%"></div>
+          </div>
+          <!-- Conclusion Text -->
+          <div class="box third-height text-box">
+            <p>
+              The data highlights that LGAs that are more socio-economically
+              disadvantaged have disproportionately high expenditure on pokies.
+              This shows that the ones who lose the most to pokies are those who
+              generally can't afford to. From this one one thing is clear: more
+              can still be done to address this issue. Greater transparency,
+              stronger regulation, and targeted support services are needed to
+              protect vulnerable communities.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- References -->
+      <div class="box references-box">
+        <h2>References</h2>
+        <p>[Insert references here]</p>
       </div>
     </div>
 
-    <!-- Choropleth Map Container -->
-
-    <div id="choropleth_map"></div>
-
-    <!-- Scatter Plot Container -->
-    <div class="container">
-      <div>
-        <p> Blahbalh balha blha yaa </p>
-        <p> pladhb yeah asdhh s dd </p>
-        <p> Blahbalh balha blha dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blha dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blha ds </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blh dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-      </div>
-      <div id="scatter_plot"></div>
-    </div>
-
-
-    <div class="container">
-      <div id="radar_chart"></div>
-      <div>
-        <p> Blahbalh balha blha yaa </p>
-        <p> pladhb yeah asdhh s dd </p>
-        <p> Blahbalh balha blha dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blha dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blha ds </p>
-        <p> pladhb yeah asdhh s dsd </p>
-        <p> Blahbalh balha blh dsd </p>
-        <p> pladhb yeah asdhh s dsd </p>
-      </div>
-    </div>
-    <h1> REFERENCES</h1>
-    <h3> [insert references] </h3>
-  </div>
-
-  <!-- Embed Vega-Lite Visualizations -->
-  <script type="text/javascript">
-    vegaEmbed('#gaming_pie', 'vis/gaming_pie.vg.json')
-      .then(function (result) {
-        // Vega view instance
-      })
-      .catch(console.error);
-  </script>
-
-  <script type="text/javascript">
-    vegaEmbed('#choropleth_map', 'vis/exp_vic_chloropleth.vg.json')
-      .then(function (result) {
-        // Vega view instance
-      })
-      .catch(console.error);
-  </script>
-
-  <script type="text/javascript">
-    vegaEmbed('#scatter_plot', 'vis/apv_loss_bubble.vg.json')
-      .then(function (result) {
-        // Vega view instance
-      })
-      .catch(console.error);
-  </script>
-
-  <script type="text/javascript">
-    vegaEmbed('#radar_chart', 'vis/radar_chart.vg.json')
-      .then(function (result) {
-        // Vega view instance
-      })
-      .catch(console.error);
-  </script>
-</body>
-
+    <!-- Vega-Lite Visualizations -->
+    <script type="text/javascript">
+      vegaEmbed("#gaming_pie", "vis/gaming_pie.vg.json", {
+        actions: false,
+      }).catch(console.error);
+      vegaEmbed("#choropleth_map", "vis/exp_vic_chloropleth.vg.json", {
+        actions: false,
+      }).catch(console.error);
+      vegaEmbed("#scatter_plot", "vis/apv_loss_bubble.vg.json", {
+        actions: false,
+      }).catch(console.error);
+      vegaEmbed("#radar_chart", "vis/radar_chart.vg.json", {
+        actions: false,
+      }).catch(console.error);
+      vegaEmbed("#parallel_coords", "vis/parallel_coords.vg.json", {
+        actions: false,
+      }).catch(console.error);
+    </script>
+  </body>
 </html>

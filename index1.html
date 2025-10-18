@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokies in Victoria, What Communities are Impacted the Most?</title>
+
+  <!-- Import Vega & Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+  <!-- CSS Styles -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+</head>
+
+<body>
+  <div id="page-container">
+    <h1> Pokies Prevalence in Victoria </h1>
+
+    <div class="container">
+      <div id="gaming_pie"></div>
+      <div class="text">
+        <p>Electronic Gaming machines (EGMs), also known as Pokies, Slot Machines and the One-Armed-Bandit sBlah blah
+          blah blah Blah blah blah blah Blah blah blah blahBlah blah blah blah</p>
+      </div>
+    </div>
+
+    <!-- Choropleth Map Container -->
+
+    <div id="choropleth_map"></div>
+
+    <!-- Scatter Plot Container -->
+    <div class="container">
+      <div>
+        <p> Blahbalh balha blha yaa </p>
+        <p> pladhb yeah asdhh s dd </p>
+        <p> Blahbalh balha blha dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blha dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blha ds </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blh dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+      </div>
+      <div id="scatter_plot"></div>
+    </div>
+
+
+    <div class="container">
+      <div id="radar_chart"></div>
+      <div>
+        <p> Blahbalh balha blha yaa </p>
+        <p> pladhb yeah asdhh s dd </p>
+        <p> Blahbalh balha blha dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blha dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blha ds </p>
+        <p> pladhb yeah asdhh s dsd </p>
+        <p> Blahbalh balha blh dsd </p>
+        <p> pladhb yeah asdhh s dsd </p>
+      </div>
+    </div>
+    <h1> REFERENCES</h1>
+    <h3> [insert references] </h3>
+  </div>
+
+  <!-- Embed Vega-Lite Visualizations -->
+  <script type="text/javascript">
+    vegaEmbed('#gaming_pie', 'vis/gaming_pie.vg.json')
+      .then(function (result) {
+        // Vega view instance
+      })
+      .catch(console.error);
+  </script>
+
+  <script type="text/javascript">
+    vegaEmbed('#choropleth_map', 'vis/exp_vic_chloropleth.vg.json')
+      .then(function (result) {
+        // Vega view instance
+      })
+      .catch(console.error);
+  </script>
+
+  <script type="text/javascript">
+    vegaEmbed('#scatter_plot', 'vis/apv_loss_bubble.vg.json')
+      .then(function (result) {
+        // Vega view instance
+      })
+      .catch(console.error);
+  </script>
+
+  <script type="text/javascript">
+    vegaEmbed('#radar_chart', 'vis/radar_chart.vg.json')
+      .then(function (result) {
+        // Vega view instance
+      })
+      .catch(console.error);
+  </script>
+</body>
+
+</html>

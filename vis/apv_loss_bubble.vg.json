@@ -1,12 +1,45 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Bubble chart of LGAs by expenditure and income, sized by EGM per adult, colored by EGM ban",
+  "description": "Bubble chart of LGAs by expenditure and income, sized by EGM per adult, colored by region",
   "data": {
     "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
   },
-  "title": "Pokies Expediture per Adult in Victorian LGA's(2024)",
-  "width": 600,
-  "height": 400,
+  "title": {
+    "text": "Pokies Expenditure per Adult in Victorian LGAs (2024)",
+    "fontSize": 22,
+    "anchor": "start",
+    "font": "sans-serif",
+    "color": "#333"
+  },
+  "width": 650,
+  "height": 590,
+  "config": {
+    "background": null,
+    "axis": {
+      "labelFont": "sans-serif",
+      "labelFontSize": 12,
+      "titleFont": "sans-serif",
+      "titleFontSize": 14,
+      "grid": true,
+      "gridColor": "#ddd",
+      "tickColor": "#ccc",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "sans-serif",
+      "labelFontSize": 12,
+      "titleFont": "sans-serif",
+      "titleFontSize": 13
+    },
+    "title": {
+      "font": "sans-serif",
+      "fontSize": 20,
+      "color": "#333"
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
   "params": [
     {
       "name": "EGMpA_Above",
@@ -16,23 +49,15 @@
         "min": 0,
         "max": 10,
         "step": 1,
-        "name": "Pokies Machines Per 1000 Adults: "
+        "name": "Pokies Machines per 1000 Adults: "
       }
     },
     {
       "name": "Region_Selection",
       "bind": {
         "input": "select",
-        "options": [
-          null,
-          "Metro",
-          "Country"
-        ],
-        "labels": [
-          "Show All",
-          "Metro",
-          "Country"
-        ],
+        "options": [null, "Metro", "Country"],
+        "labels": ["Show All", "Metro", "Country"],
         "name": "Region Selection: "
       }
     }
@@ -49,108 +74,93 @@
     "y": {
       "field": "SEIFA DIS Score ",
       "type": "quantitative",
-      "title": "SEIFA DIS Score ",
+      "title": "SEIFA DIS Score",
       "scale": {
-        "domain": [
-          880,
-          1100
-        ]
+        "domain": [880, 1100]
+      },
+      "axis": {
+        "tickCount": 7
       }
     },
     "x": {
       "field": "Expenditure per Adult 2024",
       "type": "quantitative",
-      "title": "Expenditure per Adult 2024",
+      "title": "Expenditure per Adult ($)",
       "scale": {
-        "domain": [
-          0,
-          1100
-        ]
+        "domain": [0, 1100]
+      },
+      "axis": {
+        "tickCount": 8
       }
     }
   },
   "layer": [
     {
-      "mark": "circle",
+      "mark": {
+        "type": "circle",
+        "tooltip": true
+      },
       "encoding": {
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Metro", "Country"],
+            "range": ["#214db0", "#00a768"]
+          },
+          "legend": {
+            "title": "Region",
+            "orient": "top",
+            "direction": "horizontal"
+          }
+        },
         "size": {
           "field": "Adults Population 2024",
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [
-              5000,
-              20000,
-              50000,
-              150000
-            ],
-            "range": [
-              50,
-              100,
-              175,
-              275,
-              400
-            ]
+            "domain": [5000, 20000, 50000, 150000],
+            "range": [50, 100, 175, 275, 400]
           },
           "legend": {
+            "title": "Adult Population",
+            "orient": "top",
+            "direction": "horizontal",
             "format": ".1s"
           }
         },
-        "color": {
-          "field": "Region",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Metro",
-              "Country"
-            ],
-            "range": [
-              "#214db0",
-              "#00a768"
-            ]
-          }
-        },
         "opacity": {
-          "value": 0.6
+          "value": 0.65
         },
         "tooltip": [
-          {
-            "field": "LGA Name",
-            "type": "nominal"
-          },
-          {
-            "field": "Region",
-            "type": "nominal"
-          },
+          { "field": "LGA Name", "type": "nominal", "title": "LGA" },
+          { "field": "Region", "type": "nominal" },
           {
             "field": "Expenditure per Adult 2024",
             "type": "quantitative",
-            "format": "$,"
+            "format": "$,.0f"
           },
           {
             "field": "SEIFA DIS Score ",
             "type": "quantitative",
-            "format": ","
+            "title": "SEIFA DIS Score"
           },
-          {
-            "field": "SEIFA ADVDIS Score",
-            "type": "quantitative",
-            "format": ","
-          },
+          { "field": "SEIFA ADVDIS Score", "type": "quantitative" },
           {
             "field": "Median House Hold Weekly Income",
             "type": "quantitative",
-            "format": "$,"
+            "title": "Median HH Income",
+            "format": "$,.0f"
           },
           {
             "field": "EGM per 1,000 Adults 2024",
             "type": "quantitative",
-            "format": ","
+            "format": ",.1f"
           },
           {
             "field": "Unemployment Rate as at June 2024",
             "type": "quantitative",
-            "format": ".0%"
+            "format": ".1%"
           }
         ]
       }
@@ -162,7 +172,8 @@
         "dx": -3,
         "dy": -3,
         "fontSize": 10,
-        "color": "black"
+        "color": "black",
+        "font": "sans-serif"
       },
       "transform": [
         {
@@ -182,17 +193,54 @@
         }
       ],
       "encoding": {
-        "x": {
-          "field": "Expenditure per Adult 2024",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "SEIFA DIS Score ",
-          "type": "quantitative"
-        },
+        "x": { "field": "Expenditure per Adult 2024", "type": "quantitative" },
+        "y": { "field": "SEIFA DIS Score ", "type": "quantitative" },
+        "text": { "field": "LGA Name", "type": "nominal" }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 12,
+        "font": "sans-serif",
+        "color": "#666"
+      },
+      "encoding": {
+        "x": { "value": 63 },
+        "y": { "value": 500 },
         "text": {
-          "field": "LGA Name",
-          "type": "nominal"
+          "value": [
+            "Country Regions generally",
+            "have lower socio-economic",
+            "advantage and spend",
+            "less on Pokies"
+          ]
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "top",
+        "fontSize": 12,
+        "font": "sans-serif",
+        "color": "#666"
+      },
+      "encoding": {
+        "x": { "value": 580 },
+        "y": { "value": 500 },
+        "text": {
+          "value": [
+            "The two metro LGA's with",
+            "the highest expenditure",
+            "are also the two most",
+            "socio-econmically",
+            "disadvantaged",
+            "communities"
+          ]
         }
       }
     }

@@ -1,19 +1,38 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Victorian LGAs: Gambling Losses, Socio-Economic Status, and Unemployment (2024)",
   "resolve": {
     "scale": {
       "color": "independent"
     }
   },
   "config": {
+    "background": null,
     "projection": {
       "type": "equalEarth",
-      "rotate": [
-        -140,
-        0,
-        0
-      ]
+      "rotate": [-140, 0, 0]
+    },
+    "axis": {
+      "labelFont": "sans-serif",
+      "labelFontSize": 12,
+      "titleFont": "sans-serif",
+      "titleFontSize": 14,
+      "grid": false
+    },
+    "legend": {
+      "labelFont": "sans-serif",
+      "labelFontSize": 12,
+      "titleFont": "sans-serif",
+      "titleFontSize": 13,
+      "orient": "bottom-left"
+    },
+    "title": {
+      "font": "sans-serif",
+      "fontSize": 18,
+      "color": "#333",
+      "anchor": "start"
+    },
+    "view": {
+      "stroke": "transparent"
     }
   },
   "params": [
@@ -22,14 +41,8 @@
       "value": "All",
       "bind": {
         "input": "radio",
-        "options": [
-          "All",
-          "Metro"
-        ],
-        "labels": [
-          "All LGAs",
-          "Metro Only"
-        ],
+        "options": ["All", "Metro"],
+        "labels": ["All LGAs", "Metro Only"],
         "name": "Select Region - "
       }
     }
@@ -37,8 +50,8 @@
   "hconcat": [
     {
       "title": "Average Yearly EGM Loss per Adult ($)",
-      "width": 300,
-      "height": 300,
+      "width": 367.3,
+      "height": 367.3,
       "data": {
         "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
         "format": {
@@ -54,11 +67,7 @@
               "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
             },
             "key": "LGA Name",
-            "fields": [
-              "Expenditure per Adult 2024",
-              "Region",
-              "EGM ban"
-            ]
+            "fields": ["Expenditure per Adult 2024", "Region", "EGM ban"]
           }
         },
         {
@@ -80,15 +89,7 @@
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [
-              0,
-              1,
-              200,
-              400,
-              600,
-              800,
-              1000
-            ],
+            "domain": [0, 1, 200, 400, 600, 800, 1000],
             "range": [
               "#d7f5df",
               "#c2ebd1",
@@ -103,7 +104,8 @@
           "legend": {
             "orient": "bottom",
             "direction": "horizontal",
-            "title": "EGM Loss per Adult"
+            "title": "EGM Loss per Adult",
+            "format": "$,.0f"
           }
         },
         "tooltip": [
@@ -115,15 +117,15 @@
           {
             "field": "Expenditure per Adult ($)",
             "type": "quantitative",
-            "format": "$,"
+            "format": "$,.0f"
           }
         ]
       }
     },
     {
       "title": "Socio-Economic Advantage Score*",
-      "width": 300,
-      "height": 300,
+      "width": 367.3,
+      "height": 367.3,
       "data": {
         "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
         "format": {
@@ -139,11 +141,7 @@
               "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
             },
             "key": "LGA Name",
-            "fields": [
-              "SEIFA DIS Score ",
-              "Region",
-              "EGM ban"
-            ]
+            "fields": ["SEIFA DIS Score ", "Region", "EGM ban"]
           }
         },
         {
@@ -165,14 +163,7 @@
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [
-              925,
-              950,
-              975,
-              1000,
-              1025,
-              1050
-            ],
+            "domain": [925, 950, 975, 1000, 1025, 1050],
             "range": [
               "#dce6f9",
               "#c2d4f3",
@@ -206,8 +197,8 @@
     },
     {
       "title": "Unemployment Rate (June 2024)",
-      "width": 300,
-      "height": 300,
+      "width": 367.3,
+      "height": 367.3,
       "data": {
         "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/VICLGAtopojson.json",
         "format": {
@@ -223,11 +214,7 @@
               "url": "https://raw.githubusercontent.com/Harry-Mls/FIT3179/main/data/EGM2023-2024.csv"
             },
             "key": "LGA Name",
-            "fields": [
-              "Unemployment Rate as at June 2024",
-              "Region",
-              "EGM ban"
-            ]
+            "fields": ["Unemployment Rate as at June 2024", "Region", "EGM ban"]
           }
         },
         {
@@ -249,31 +236,23 @@
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [
-              0.01,
-              0.02,
-              0.03,
-              0.04,
-              0.05,
-              0.06,
-              0.07
-            ],
+            "domain": [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07],
             "range": [
-              "#fbe0dc",
-              "#f6c7c2",
-              "#e89c97",
-              "#d3706a",
-              "#bb4b45",
-              "#9b2f2a",
-              "#801f1d",
-              "#4c0f0d"
+              "#f2e6f9",
+              "#e0c9f2",
+              "#c89de5",
+              "#aa6fd1",
+              "#8e3fbc",
+              "#7227a6",
+              "#551d87",
+              "#2f0c4f"
             ]
           },
           "legend": {
             "title": "Unemployment Rate",
+            "format": ".0%",
             "orient": "bottom",
-            "direction": "horizontal",
-            "format": ".0%"
+            "direction": "horizontal"
           }
         },
         "tooltip": [
@@ -285,7 +264,7 @@
           {
             "field": "Unemployment Rate",
             "type": "quantitative",
-            "format": ".0%"
+            "format": ".1%"
           }
         ]
       }
