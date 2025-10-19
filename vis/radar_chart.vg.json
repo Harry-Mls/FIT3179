@@ -3,7 +3,7 @@
   "description": "Radar chart comparing two LGAs with normalized scores",
   "width": 548,
   "height": 548,
-  "padding": 55,
+  "padding": 70,
   "autosize": {
     "type": "none",
     "contains": "padding"
@@ -523,10 +523,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 220
+            "value": -180
           },
           "y": {
-            "value": -10
+            "value": 200
           },
           "shape": {
             "value": "circle"
@@ -546,10 +546,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 230
+            "value": -170
           },
           "y": {
-            "value": -9
+            "value": 201
           },
           "text": {
             "value": "LGA 1"
@@ -572,10 +572,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 220
+            "value": -180
           },
           "y": {
-            "value": 10
+            "value": 220
           },
           "shape": {
             "value": "circle"
@@ -595,10 +595,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 230
+            "value": -170
           },
           "y": {
-            "value": 11
+            "value": 221
           },
           "text": {
             "value": "LGA 2"
@@ -621,10 +621,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 0
+            "value": -250
           },
           "y": {
-            "value": -320
+            "value": -260
           },
           "text": {
             "value": "Comparison of LGAs on Normalized Scores"
@@ -636,7 +636,7 @@
             "value": "bold"
           },
           "align": {
-            "value": "center"
+            "value": "left"
           },
           "baseline": {
             "value": "middle"
@@ -652,10 +652,10 @@
       "encode": {
         "enter": {
           "x": {
-            "value": 0
+            "value": -250
           },
           "y": {
-            "value": -300
+            "value": -240
           },
           "text": {
             "value": "Scores are normalized (0 to 1) across all LGAs for each metric"
@@ -667,7 +667,7 @@
             "value": "italic"
           },
           "align": {
-            "value": "center"
+            "value": "left"
           },
           "baseline": {
             "value": "middle"

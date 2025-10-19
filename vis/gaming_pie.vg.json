@@ -38,7 +38,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Betting", "Casino", "Keno", "Lotteries", "Pokies"],
-            "range": ["#d91919", "#d96f19", "#d919c9", "#009b00", "#1939d9"]
+            "range": ["#6c3baa", "#d96f19", "#d919c9", "#009b00", "#1939d9"]
           },
           "legend": {
             "orient": "bottom",
