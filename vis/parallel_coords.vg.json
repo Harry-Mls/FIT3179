@@ -14,7 +14,6 @@
   "width": 540,
   "height": 280,
   "transform": [
-    { "filter": "datum['LGA Name']" },
     { "window": [{ "op": "count", "as": "index" }] },
     {
       "fold": [
@@ -34,9 +33,6 @@
         { "op": "max", "field": "value_num", "as": "max" }
       ],
       "groupby": ["key"]
-    },
-    {
-      "filter": "isFinite(datum.value_num)"
     },
     {
       "calculate": "(datum.value_num - datum.min) / (datum.max - datum.min)",
@@ -184,7 +180,7 @@
             ]
           }
         },
-        "y": { "value": 125 }
+        "y": { "value": 140 }
       },
       "layer": [
         {
@@ -223,7 +219,7 @@
             ]
           }
         },
-        "y": { "value": 250 }
+        "y": { "value": 280 }
       },
       "layer": [
         {
